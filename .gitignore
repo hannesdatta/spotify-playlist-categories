@@ -1,0 +1,4 @@
+data/
+gen/
+.DS_Store
+.Rhistory
