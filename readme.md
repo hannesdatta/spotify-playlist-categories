@@ -62,10 +62,10 @@ Please follow the installation guide on http://tilburgsciencehub.com/.
 
 Open your command line tool:
 
-- Check whether your present working directory is  `spotify-platformpower-classification` by typing `pwd` in terminal
+- Navigate to the directory in which this readme file resides, by typing `pwd` (Mac) or `dir` (Windows) in terminal
 
-  - if not, type `cd yourpath/spotify-platformpower-classification` to change your directory to `spotify-platformpower-classification`
-
+  - if not, type `cd yourpath/` to change your directory to the correct one.
+  
 - Type `make` in the command line. 
 
 ## Directory Structure
