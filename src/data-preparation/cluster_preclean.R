@@ -27,20 +27,26 @@ tags[meta, tag_name:=i.tag]
 
 tags[, type:='tags']
 
-new_tags = rbindlist(list(tags,mood_tags,activity_tags),fill=T)
+new_tags = rbindlist(list(tags[, c('id','followers','tag_name','type')],mood_tags,activity_tags),fill=T)
+
 setkey(new_tags,id)
 setkey(playlists, id)
 new_tags[playlists, ':=' (followers=i.followers, followerrank=i.follower_rank)]
 
+# clean tag names
+library(stringr)
+new_tags[, tag_name2:=gsub('[ ]','', str_squish((str_replace_all(tag_name, regex("\\W+"), " "))))]
+
+
 # group low-popularity keywords together - not needed for final implementation, but done here to speed it up
-new_tags[, tagid_new:=.GRP,by=c('type','tag_name')]
+new_tags[, tagid_new:=.GRP,by=c('type','tag_name2')]
 
 # compute input for similarity computations (playlist X tag occurence)
 new_tags[, value:=1]
 #tags[, value:= log(tagimportance+1)]
 
 # important: remove condition of only using it on 30k - use on entire set!
-plXtags = dcast(new_tags[followerrank<=30000], id~type+tagid_new, fun.aggregate=function(x) 1, fill = 0, value.var='value')
+plXtags = dcast(new_tags, id~type+tagid_new, fun.aggregate=function(x) 1, fill = 0, value.var='value')
 
 fwrite(plXtags, '../../gen/data-preparation/temp/playlist-tags.csv')
 
