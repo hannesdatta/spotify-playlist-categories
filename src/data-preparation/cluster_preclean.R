@@ -45,7 +45,6 @@ new_tags[, tagid_new:=.GRP,by=c('type','tag_name2')]
 new_tags[, value:=1]
 #tags[, value:= log(tagimportance+1)]
 
-# important: remove condition of only using it on 30k - use on entire set!
 plXtags = dcast(new_tags, id~type+tagid_new, fun.aggregate=function(x) 1, fill = 0, value.var='value')
 
 fwrite(plXtags, '../../gen/data-preparation/temp/playlist-tags.csv')
