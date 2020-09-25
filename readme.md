@@ -61,6 +61,8 @@ Open your command line tool:
 	- Association rules: `gen/data-preparation/output/rules.csv`
 	- Playlist classification: `gen/data-preparation/output/playlist_clusters.csv`
 	- Silhouette score line charts: `gen/data-preparation/output/figures`
+	- Label pairs (absolute): `gen/data-preparation/output/label_pairs_abs.csv`
+	- Label pairs (normalized): `gen/data-preparation/output/label_pairs_norm.csv`
 
 ## Directory Structure
 
@@ -70,8 +72,6 @@ Open your command line tool:
 │   ├── data-preparation
 │   │   ├── input
 │   │   ├── output (final output of the data-prep workflow)
-│   │   ├── label_pairs_abs (matrix with absolute playlist counts) 
-│   │   ├── label_pairs_nor (marix with normalized playlist counts) 
 │   │   └── temp (directory with unzipped raw data, and other temp files)
 │   └── figures
 └── src
