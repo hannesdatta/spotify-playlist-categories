@@ -70,6 +70,8 @@ Open your command line tool:
 │   ├── data-preparation
 │   │   ├── input
 │   │   ├── output (final output of the data-prep workflow)
+│   │   ├── label_pairs_abs (matrix with absolute playlist counts) 
+│   │   ├── label_pairs_nor (marix with normalized playlist counts) 
 │   │   └── temp (directory with unzipped raw data, and other temp files)
 │   └── figures
 └── src
