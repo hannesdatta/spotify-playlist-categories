@@ -11,20 +11,20 @@ Our main objective is to characterize Spotify playlists in terms of genre, mood,
 
 Several methods exist to create clusters of data points that have similar values within each cluster but differ from other clusters. These cluster algorithms typically require a pairwise distance matrix as input data. Given the high-dimensional data structure of ours (1.2M rows x 1460 columns), however, the distance matrix cannot be computed. More scalable cluster methods exist (e.g., K-means), but they do not work well with sparse and binary datasets like ours <sup>1</sup>. Therefore, we adopt a different approach in which we identify pairs of tag words that frequently occur together using association rule mining. In the marketing literature this method is also known as market basket analysis and is based on the idea that if you buy a certain group of items (e.g., bread), you are more (or less) likely to buy another group of items (e.g., butter). This approach requires an input data set in which the rows and columns are transactions and products, respectively. Cells take on the value 1 if a product occurs in a transaction and 0 otherwise. In the same way, we construct a matrix in which rows and columns represent playlists and tag words, respectively. Next, we describe the association rule mining approach we used. 
 
-First, we draw a random sample of 100.000 playlists (+/- 10%) for efficiency purposes. Second, we filter down playlists that contain a major genre tag word (e.g., `pop`)<sup>2</sup>. We choose these tag words on the basis of the actual genres in the Spotify application. Third, we apply association rule mining to determine frequently co-occurring tag words within each of these subsets (e.g., `dance pop` → `pop`) <sup>3</sup>. This means that playlists that contain the tag word dance pop typically also have the tag word pop. Fourth, we assign all playlists that contain one or more of the tag words found in the association rules to the major genre tag word. For instance, all playlists that contain the tag word dance pop, pop rock, rap, or hip hop are assigned to the pop cluster. Fifth, we repeat this procedure for all major genres which yields a matrix with 32 columns in which each playlist is assigned to one or more clusters <sup>4</sup>. The size of the top 10 clusters in terms of the number of playlists and market share is presented in the table below. 
+First, we draw a random sample of 100.000 playlists (+/- 10%) for efficiency purposes. Second, we filter down playlists that contain a major genre tag word (e.g., `pop`)<sup>2</sup>. We choose these tag words on the basis of the actual genres in the Spotify application. Third, we apply association rule mining to determine frequently co-occurring tag words within each of these subsets (e.g., `dance pop` → `pop`) <sup>3</sup>. This means that playlists that contain the tag word dance pop typically also have the tag word pop. Fourth, we assign all playlists that contain one or more of the tag words found in the association rules to the major genre tag word. For instance, all playlists that contain the tag word dance pop, pop rock, or rap are assigned to the pop cluster. Fifth, we repeat this procedure for all major genres which yields a matrix with 32 columns in which each playlist is assigned to one or more clusters <sup>4</sup>. The size of the top 10 clusters in terms of the number of playlists and market share is presented in the table below. 
 
-| Cluster | Label | #Playlists | Market share|
+| Cluster | Label | Playlists | Market share|
 | :----- |:----- |:----- |:----- |
-| 1 | `pop` | ... | ...| 
-| 2 | `rock` | ... | ...| 
-| 3 | `country` | ... | ...| 
-| 4 | `soul` | ... | ...| 
-| 5 | `blues` | ... | ...| 
-| 6 | `jazz` | ... | ...| 
-| 7 | `r&b` | ... | ...| 
-| 8 | `punk` | ... | ...| 
-| 9 | `afro` | ... | ...| 
-| 10 | `alternative` | ... | ...| 
+| 1 | `pop` | 15.4% | 39.3% | 
+| 2 | `rock` | 9.6% | 12.9%| 
+| 3 | `student` | 8.5% | 10.9%| 
+| 4 | `romance` | 7.7% | 10.6%| 
+| 5 | `hip hop` | 7.5% | 11.3%| 
+| 6 | `r&b` | 6.4% | 10.7%| 
+| 7 | `indie` | 5.5% | 4.2%| 
+| 8 | `comedy` | 4.6% | 4.8%| 
+| 9 | `alternative` | 4.1% | 2.8%| 
+| 10 | `party` | 4.0% | 9.6%| 
 
 <sup>1</sup> K-means and K-modes yield highly unbalanced clusters in which there is one cluster that contains over 90% of all records and several small clusters. The Density-Based Spatial Clustering of Applications (DBSCAN) method runs into a similar issue in which most points are classified as noise. 
 
