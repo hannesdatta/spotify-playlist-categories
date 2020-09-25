@@ -15,16 +15,16 @@ First, we draw a random sample of 100.000 playlists (+/- 10%) for computational 
 
 | # | Label | Playlists | Market share |
 | :----- |:----- |:----- |:----- |
-| 1 | `pop` | 15.4% | 39.3% | 
-| 2 | `rock` | 9.6% | 12.9%| 
-| 3 | `student` | 8.5% | 10.9%| 
-| 4 | `romance` | 7.7% | 10.6%| 
-| 5 | `hip hop` | 7.5% | 11.3%| 
-| 6 | `r&b` | 6.4% | 10.7%| 
-| 7 | `indie` | 5.5% | 4.2%| 
-| 8 | `comedy` | 4.6% | 4.8%| 
-| 9 | `alternative` | 4.1% | 2.8% | 
-| 10 | `party` | 4.0% | 9.6% |
+| 1 | `pop` | 31.7% | 39.3% | 
+| 2 | `rock` | 19.7% | 12.9%| 
+| 3 | `student` | 17.5% | 10.9%| 
+| 4 | `romance` | 15.8% | 10.6%| 
+| 5 | `hip hop` | 15.4% | 11.3%| 
+| 6 | `r&b` | 13.0% | 10.7%| 
+| 7 | `indie` | 11.2% | 4.2%| 
+| 8 | `comedy` | 9.5% | 4.8%| 
+| 9 | `alternative` | 8.5% | 2.8% | 
+| 10 | `party` | 8.2% | 9.6% |
 
 *Notes:* Labels are sorted on "Playlists" which is the percentage of all playlists that are assigned to a label. Since playlists can be related to multiple labels the sum of the pecentages exceeds 100%. Market share is the number of followers of playlists in a label divided by the total number of followers.
 
