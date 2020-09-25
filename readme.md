@@ -20,7 +20,7 @@ First, we draw a random sample of 100.000 playlists. Second, we filter down play
 
 <sup>3</sup> As input parameters of the algorithm we choose a minimum support level of 10%, lift greater than 1, and a minimum confidence of 90%. 
 
-<sup>4</sup> To validate our results, we apply a variety of cluster algorithms (K-Modes, K-Means, Hierarchical Clustering (ward, single linkage, complete linkage), and Bird) to the output of association rule mining. We find that the cluster performance expressed as the silhouette score is highest for the original number of columns. As such, the output we got is already optimal and there is no need for further clustering. This provides additional evidence for the validity of our approach. The size of the top 10 clusters in terms of the number of playlists and market share is presented in Table 1.
+<sup>4</sup> To validate our results, we apply a variety of cluster algorithms (K-Modes, K-Means, Hierarchical Clustering (ward, single linkage, complete linkage), and Bird) to the output of association rule mining. We find that the cluster performance expressed as the silhouette score is highest for the original number of columns. As such, the output we got is already optimal and there is no need for further clustering. This provides additional evidence for the validity of our approach. The size of the top 10 clusters in terms of the number of playlists and market share is presented in the table below.
 
 | Cluster | Label | #Playlists | Market share|
 | :----- |:----- |:----- |:----- |
