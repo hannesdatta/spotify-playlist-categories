@@ -145,16 +145,15 @@ def cluster_stats(df_pivot, playlists):
 
     # calculate number of followers and market share for each cluster
     cluster_stats = pd.DataFrame()
-    for keys, values in df.items():
+    for keys, values in cluster_indices.items():
         cluster_temp = pd.DataFrame({'label':keys, 
                                 'num_playlists':len(values), 
-                                'market_share': playlists.loc[playlists.id.isin(df[keys]), 'followers'].sum() / total_market_size * 100}, 
+                                'market_share': playlists.loc[playlists.id.isin(cluster_indices[keys]), 'followers'].sum() / total_market_size * 100}, 
                                index=[0])
         cluster_stats = pd.concat([cluster_temp, cluster_stats])
     
     cluster_stats['perc_playlists'] = cluster_stats['num_playlists'] / len(df_pivot) * 100
     print(cluster_stats.sort_values('perc_playlists', ascending=False).reset_index(drop=True))
-    
     return cluster_stats
 
 
@@ -171,7 +170,10 @@ def label_pairs(df_pivot, absolute=True):
 
     return pd.DataFrame(matrix).set_index(df_pivot.columns)
 
-cluster_stats(df_pivot, playlists)
+print('export cluster stats')
+cluster_stats(df_pivot, playlists).to_csv("../../gen/data-preparation/output/cluster_stats.csv")
+
+print('export label pairs')
 label_pairs(df_pivot, True).to_csv("../../gen/data-preparation/output/label_pairs_abs.csv")
 label_pairs(df_pivot, False).to_csv("../../gen/data-preparation/output/label_pairs_norm.csv")
 
