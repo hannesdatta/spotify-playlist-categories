@@ -34,7 +34,7 @@ print("market share playlists without any tag words: {0:.1f}%".format(followers_
 # remove leading and trailing spaces and hyphens
 df['tag'] = df['tag'].apply(lambda x: x.strip(" ")).apply(lambda x: x.replace("-", " "))
 
-# create a random sample of playlists (we cannot )
+# create a random sample of playlists
 np.random.seed(1) # for reproducbility (every time the same sample and thus identical association rules)
 df_ids = df['id'].unique()
 df_sample_ids = np.random.choice(df_ids, 100000)
@@ -98,7 +98,7 @@ def tag_word_analysis(basket, genre, min_confidence, min_support):
     return tag_cluster
     
 # determine association rules within each main genre (note that one tagword may be associated with multiple clusters (e.g., soft rock -> rock & soft rock -> pop))
-min_support=0.01 # changing the support level has a major impact on the outcomes (higher support = fewer association rules = fewer clusters)
+min_support=0.1 # changing the support level has a major impact on the outcomes (higher support = fewer association rules = fewer clusters)
 min_confidence = .9
 print("starting association rule mining with minimum confidence of " + str(min_confidence) + " and minimum support of " + str(min_support))
 tag_clusters = pd.concat([tag_word_analysis(basket, genre, min_support=min_support, min_confidence=min_confidence) for genre in genres])
@@ -126,3 +126,54 @@ df_pivot = playlist_cluster.pivot(index='id', columns='cluster', values='values'
 # export results
 print("export data")
 df_pivot.to_csv("../../gen/data-preparation/output/playlist_clusters.csv")
+
+
+# ------------------------------- #
+#       CLUSTER STATISTICS		  #
+# ------------------------------- #
+
+def calculate_cluster_indices(df_pivot):
+    return {column: df_pivot.index[(df_pivot[column ] == 1)].tolist() for column in df_pivot.columns}
+
+
+def cluster_stats(df_pivot, playlists):
+    # collect playlist ids for each label
+    cluster_indices = calculate_cluster_indices(df_pivot)
+
+    # total number of followers of playlists included in final sample
+    total_market_size = playlists.loc[playlists.id.isin(df_pivot.index), 'followers'].sum()
+
+    # calculate number of followers and market share for each cluster
+    cluster_stats = pd.DataFrame()
+    for keys, values in df.items():
+        cluster_temp = pd.DataFrame({'label':keys, 
+                                'num_playlists':len(values), 
+                                'market_share': playlists.loc[playlists.id.isin(df[keys]), 'followers'].sum() / total_market_size * 100}, 
+                               index=[0])
+        cluster_stats = pd.concat([cluster_temp, cluster_stats])
+    
+    cluster_stats['perc_playlists'] = cluster_stats['num_playlists'] / len(df_pivot) * 100
+    print(cluster_stats.sort_values('perc_playlists', ascending=False).reset_index(drop=True))
+    
+    return cluster_stats
+
+
+def label_pairs(df_pivot, absolute=True):
+    cluster_indices = calculate_cluster_indices(df_pivot)
+    
+    if absolute:  # cells are absolute playlist counts
+        matrix = [df_pivot.loc[df_pivot.index.isin(cluster_indices[label])].sum(axis=0) for label in df_pivot.columns]
+
+    else:  # normalized (cells are playlist counts relative to diagonal)
+        matrix = [df_pivot.loc[df_pivot.index.isin(cluster_indices[label])].sum(axis=0) / 
+                  df_pivot.loc[df_pivot.index.isin(cluster_indices[label])].sum(axis=0)[label]
+                  for label in df_pivot.columns]
+
+    return pd.DataFrame(matrix).set_index(df_pivot.columns)
+
+cluster_stats(df_pivot, playlists)
+label_pairs(df_pivot, True).to_csv("../../gen/data-preparation/output/label_pairs_abs.csv")
+label_pairs(df_pivot, False).to_csv("../../gen/data-preparation/output/label_pairs_norm.csv")
+
+
+
