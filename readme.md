@@ -13,7 +13,7 @@ Several methods exist to create clusters of data points that have similar values
 
 First, we draw a random sample of 100.000 playlists (+/- 10%) for efficiency purposes. Second, we filter down playlists that contain a major genre tag word (e.g., `pop`)<sup>2</sup>. We choose these tag words on the basis of the actual genres in the Spotify application. Third, we apply association rule mining to determine frequently co-occurring tag words within each of these subsets (e.g., `dance pop` → `pop`) <sup>3</sup>. This means that playlists that contain the tag word dance pop typically also have the tag word pop. Fourth, we assign all playlists that contain one or more of the tag words found in the association rules to the major genre tag word. For instance, all playlists that contain the tag word dance pop, pop rock, or rap are assigned to the pop cluster. Fifth, we repeat this procedure for all major genres which yields a matrix with 32 columns in which each playlist is assigned to one or more clusters <sup>4</sup>. The size of the top 10 clusters in terms of the number of playlists and market share is presented in the table below. 
 
-| #Cluster | Label | Playlists | Market share |
+| # | Label | Playlists | Market share |
 | :----- |:----- |:----- |:----- |
 | 1 | `pop` | 15.4% | 39.3% | 
 | 2 | `rock` | 9.6% | 12.9%| 
