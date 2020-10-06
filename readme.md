@@ -36,7 +36,7 @@ First, we draw a random sample of 100.000 playlists (+/- 10%) for computational 
 
 <sup>3</sup> As input parameters for the Apriori algorithm we choose a minimum support level of 10%, lift greater than 1, and a minimum confidence of 90%. Inspection of the output shows that these results are face-valid (Appendix X).
 
-<sup>4</sup> To validate our results, we apply a variety of cluster algorithms (K-Modes, K-Means, Hierarchical Clustering (ward, single linkage, complete linkage), and Bird) to the output of association rule mining. We find that the cluster performance expressed as the silhouette score is highest for the original number of columns. As such, the output we got is already optimal and there is no need for further clustering. This provides additional evidence for the validity of our approach.
+<sup>4</sup> To validate our results, we apply a variety of cluster algorithms (K-Modes, K-Means, Hierarchical Clustering (ward, single linkage, complete linkage), and Bird) to the output of association rule mining. We find that the cluster performance expressed as the silhouette score is highest for the original number of columns. This also holds when we split up the data into genre (e.g., `pop`) and non-genre (e.g., `activity`) labels before we apply clustering techniques. As such, the output we got is already optimal and there is no need for further clustering. This provides additional evidence for the validity of our approach.
 
 ## Dependencies
 
