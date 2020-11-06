@@ -2,15 +2,22 @@
 
 ## Goal
 
-For an ongoing research project on estimating the power of platforms (here: Spotify) vis-a-vis the content providers (here: major labels), we require
-a face-valid classification of 1.2m playlists on Spotify into categories (e.g., genres, moods, activities). A classification is important to illustrate power differences across categories. Categories need not to be mutually exclusive (e.g., rock is different from dance, but both rock and dance can be part of a "chill" category). 
+For a research project on estimating the power of platforms vis-a-vis the content providers (here: Spotify versus major music labels), we require
+a face-valid categorization of the playlist ecosystem on Spotify (e.g., to illustrate power differences in genre categories, compared to moods or activities). Importantly, categories need not to be mutually exclusive (e.g., rock is different from dance, but both rock and dance can be part of a "chill" category).
 
-## Inputs and outputs
+## Solution
+
+Apply association rule mining to learn categorizations from tag words.
+
+
+## Details
+
+### Inputs and outputs
 
 - Input: List of up to six tag words associated with each playlist tracked by Chartmetric.com (in April 2020).
 - Output: Playlists and their associated categories
 
-## Methodology
+### Description of the methodology
 
 Our main objective is to characterize Spotify playlists in terms of genre, mood, and activity labels. As playlists consist of a variety of tracks, they typically represent multiple subgenres or mood/activity labels. For instance, the *Latin Pop Hits* playlist is associated with both a `latin` and `pop` keyword. Similarly, many workout playlists can be assigned a `dance` and `activity` keyword. 
 
@@ -32,7 +39,9 @@ First, we draw a random sample of 100.000 playlists (+/- 10%) for computational 
 
 <sup>4</sup> To validate our results, we apply a variety of cluster algorithms (K-Modes, K-Means, Hierarchical Clustering (ward, single linkage, complete linkage), and Bird) to the output of association rule mining. We find that the cluster performance expressed as the silhouette score is highest for the original number of columns. This also holds when we split up the data into genre (e.g., `pop`) and non-genre (e.g., `activity`) labels before we apply clustering techniques. As such, the output we got is already optimal and there is no need for further clustering. This provides additional evidence for the validity of our approach.
 
-## Dependencies
+## Running instructions
+
+### Dependencies
 
 Please follow the installation guide on http://tilburgsciencehub.com/.
 
@@ -40,10 +49,11 @@ Please follow the installation guide on http://tilburgsciencehub.com/.
 - Python. [Installation Guide](http://tilburgsciencehub.com/setup/python/).
 - R. [Installation Guide](http://tilburgsciencehub.com/setup/r/).
 - For R packages, see source code files (lines starting with `library`).
+- For Python packages, see source code files (lines starting with `from ... import` or `import`)
 
-## How to run it
+### Running the code
 
-Open your command line tool:
+Open your command line/terminal:
 
 - Navigate to the directory in which this readme file resides, by typing `pwd` (Mac) or `dir` (Windows) in terminal
 
@@ -58,10 +68,10 @@ Open your command line tool:
 	- Label pairs (absolute): `gen/data-preparation/output/label_pairs_abs.csv`
 	- Label pairs (normalized): `gen/data-preparation/output/label_pairs_norm.csv`
 
-## Directory Structure
+### Directory Structure
 
 ```txt
-├── data (directory with zipped raw data)
+├── data (directory with zipped raw data; 50MB)
 ├── gen
 │   ├── data-preparation
 │   │   ├── input
