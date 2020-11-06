@@ -1,0 +1,45 @@
+---
+title: "Overview of results"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(data.table)
+library(kableExtra)
+
+labelpairs_norm = fread('../../gen/data-preparation/output/label_pairs_norm.csv')
+labelpairs_abs = fread('../../gen/data-preparation/output/label_pairs_abs.csv')
+cluster_stats = fread('../../gen/data-preparation/output/cluster_stats.csv')[,V1:=NULL]
+
+rules = fread('../../gen/data-preparation/output/rules.csv')
+
+playlist_clusters = fread('../../gen/data-preparation/output/playlist_clusters.csv')
+
+playlists = melt(playlist_clusters, id.vars=c('id'))[value!=0]
+setnames(playlists, 'variable', 'category')
+playlists[, value:=NULL]
+
+```
+
+## Categories
+
+```{r, results = 'asis', echo = FALSE}
+
+tmp = playlists[, list(N=.N), by = c('category')]
+setorderv(tmp, 'N', order=-1L)
+
+kable(tmp, caption = 'Playlist categories and category sizes')
+
+```
+
+## Category overlap
+
+```{r, echo = FALSE}
+tmp=as.matrix(labelpairs_norm[,-1,with=F])
+tmp[which(tmp==1)]<-NA
+
+heatmap(tmp)
+
+```
