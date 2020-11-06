@@ -13,7 +13,7 @@ OUTPUT_FIGURES = ../../gen/figures
 
 all: figures
 
-figures: $(OUTPUT_FIGURES)/genre_k_mode.png
+figures: $(OUTPUT_FIGURES)/genre_k_modes.png
 
 associationrules: $(OUTPUT_DIR)/playlist_clusters.csv
 
@@ -36,7 +36,7 @@ $(TEMP_DIR)/unzipping.log $(TEMP_DIR)/tags-playlists.csv $(TEMP_DIR)/tags-playli
 $(OUTPUT_DIR)/playlist_clusters.csv $(OUTPUT_DIR)/label_pairs_abs.csv $(OUTPUT_DIR)/label_pairs_norm.csv: $(TEMP_DIR)/tags-playlists.csv $(TEMP_DIR)/tags-playlists-meta.csv $(TEMP_DIR)/playlists.csv 
 	python playlists_association_rules.py
 
-$(OUTPUT_FIGURES)/genre_k_mode.png: $(OUTPUT_DIR)/playlist_clusters.csv
+$(OUTPUT_FIGURES)/genre_k_modes.png: $(OUTPUT_DIR)/playlist_clusters.csv
 	python cluster.py
 
 
