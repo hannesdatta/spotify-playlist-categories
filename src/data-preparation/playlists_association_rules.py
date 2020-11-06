@@ -2,7 +2,13 @@ import pandas as pd
 import numpy as np
 from mlxtend.frequent_patterns import apriori
 from mlxtend.frequent_patterns import association_rules
+import os
 
+try:
+    os.mkdir('../../gen/data-preparation/output')
+except:
+    print('dir exists')
+    
 # ---------------------------- #
 #       DATA PREPARATION       #
 # ---------------------------- #

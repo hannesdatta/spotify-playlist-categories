@@ -11,15 +11,13 @@ OUTPUT_FIGURES = ../../gen/figures
 # BUILD RULES #
 ###############
 
-figure: $(OUTPUT_FIGURES)/k_mode.png
+all: figures
 
-cluster: $(OUTPUT_DIR)/playlist_clusters.csv
+figures: $(OUTPUT_FIGURES)/genre_k_mode.png
 
-label_pairs_abs: $(OUTPUT_DIR)/label_pairs_abs.csv
+associationrules: $(OUTPUT_DIR)/playlist_clusters.csv
 
-label_pairs_norm: $(OUTPUT_DIR)/label_pairs_norm.csv
-
-prepare: $(TEMP_DIR)/unzipping.log
+prep: $(TEMP_DIR)/unzipping.log
 
 ######################
 # DOWNLOAD AND UNZIP #
@@ -35,16 +33,10 @@ $(TEMP_DIR)/unzipping.log $(TEMP_DIR)/tags-playlists.csv $(TEMP_DIR)/tags-playli
 # CLUSTERING PROCEDURE #
 ########################
 
-$(OUTPUT_DIR)/playlist_clusters.csv: $(TEMP_DIR)/tags-playlists.csv $(TEMP_DIR)/tags-playlists-meta.csv $(TEMP_DIR)/playlists.csv 
+$(OUTPUT_DIR)/playlist_clusters.csv $(OUTPUT_DIR)/label_pairs_abs.csv $(OUTPUT_DIR)/label_pairs_norm.csv: $(TEMP_DIR)/tags-playlists.csv $(TEMP_DIR)/tags-playlists-meta.csv $(TEMP_DIR)/playlists.csv 
 	python playlists_association_rules.py
 
-$(OUTPUT_DIR)/label_pairs_abs.csv: $(TEMP_DIR)/tags-playlists.csv $(TEMP_DIR)/tags-playlists-meta.csv $(TEMP_DIR)/playlists.csv 
-	python playlists_association_rules.py
-
-$(OUTPUT_DIR)/label_pairs_norm.csv: $(TEMP_DIR)/tags-playlists.csv $(TEMP_DIR)/tags-playlists-meta.csv $(TEMP_DIR)/playlists.csv 
-	python playlists_association_rules.py
-
-$(OUTPUT_FIGURES)/k_mode.png: $(OUTPUT_DIR)/playlist_clusters.csv
+$(OUTPUT_FIGURES)/genre_k_mode.png: $(OUTPUT_DIR)/playlist_clusters.csv
 	python cluster.py
 
 
