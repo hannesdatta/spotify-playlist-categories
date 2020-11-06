@@ -28,7 +28,7 @@ prepare: $(TEMP_DIR)/unzipping.log
 $(DATA_DIR)/data.zip: download.py
 	python download.py
 	
-$(TEMP_DIR)/unzipping.log: unzip.py $(DATA_DIR)/data.zip
+$(TEMP_DIR)/unzipping.log $(TEMP_DIR)/tags-playlists.csv $(TEMP_DIR)/tags-playlists-meta.csv $(TEMP_DIR)/playlists.csv: unzip.py $(DATA_DIR)/data.zip
 	python unzip.py
 
 ########################
