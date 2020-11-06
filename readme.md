@@ -1,14 +1,13 @@
-# Clustering Algorithm for the Playlist Ecosystem at Spotify
+# Categorization of Playlists (e.g., mood versus genre playlists)
 
 ## Goal
 
 For a research project on estimating the power of platforms vis-a-vis the content providers (here: Spotify versus major music labels), we require
-a face-valid categorization of the playlist ecosystem on Spotify (e.g., to illustrate power differences in genre categories, compared to moods or activities). Importantly, categories need not to be mutually exclusive (e.g., rock is different from dance, but both rock and dance can be part of a "chill" category).
+a face-valid categorization of playlists on Spotify (e.g., to illustrate power differences in genre categories, compared to mood or activity categories). The raw data (retrieved from the API of Chartmetric.com) contains playlist names, and up to six associated tag words. However, absent from the data are broader categories (e.g. "EDM", "rock", "workout", "activity").
 
 ## Solution
 
-Apply association rule mining to learn categorizations from tag words.
-
+Apply association rule mining on the tag words; use category names from Spotify's "browse" section (see also everynoise.com/worldbrowser.cgi for a list of these names) to learn categorizations from the playlists' tag words. Association rule mining allows playlists to be associated with *multiple* categories (e.g., a playlist can belong both to the "chill" and the "EDM" category).
 
 ## Details
 
